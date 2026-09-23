@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Citizen Dashboard | CivicConnect</title><link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/citizen.css">
+<title>Citizen Dashboard | CivicConnect</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="citizen.css">
 </head><body>
 <header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">CC</span>CivicConnect</a>
 <nav class="topnav"><a class="active" href="citizen-dashboard.html">Dashboard</a><a href="report.html">Report</a><a href="citizen-complaints.html">Complaints</a><a href="rewards.html">Rewards</a><a href="citizen-profile.html">Profile</a><button class="icon-btn" id="themeToggle">🌙</button><button class="btn ghost" onclick="logout()">Logout</button></nav></header>
@@ -15,6 +15,6 @@
 <div class="panel"><div class="panel-head"><h2>My Civic Progress</h2></div><div class="progress-ring"><div><strong id="badgeCount">0</strong><span>Badges</span></div></div><h3 id="nextBadge">Keep contributing!</h3><p class="muted">Earn points for accurate reporting and community participation.</p><div class="mini-leader"><span>🏆 Leaderboard position</span><strong id="rank">—</strong></div></div>
 </section>
 </main>
-<script src="../js/storage.js"></script><script src="../js/auth.js"></script><script src="../js/app.js"></script><script src="../js/citizen.js"></script>
+<script src="storage.js"></script><script src="auth.js"></script><script src="app.js"></script><script src="citizen.js"></script>
 <script>requireRole("citizen"); loadCitizenDashboard();</script>
 </body></html>
