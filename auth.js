@@ -6,11 +6,11 @@ function setupLogin(role,formId,userIdField,passwordField,errorId){
     const user=getDB().users.find(u=>u.username===username&&u.password===password&&u.role===role);
     if(!user){document.getElementById(errorId).textContent="Invalid demo credentials.";return;}
     setSession({userId:user.id,role:user.role,loginAt:Date.now()});
-    location.href=role==="citizen"?"../citizen/citizen-dashboard.html":"../admin/admin-dashboard.html";
+    location.href=role==="citizen"?"citizen-dashboard.html":"admin-dashboard.html";
   });
 }
 function requireRole(role){
   const s=getSession();
-  if(!s || s.role!==role){location.href=role==="citizen"?"../citizen/citizen-login.html":"../admin/admin-login.html";}
+  if(!s || s.role!==role){location.href=role==="citizen"?"citizen-login.html":"admin-login.html";}
 }
-function logout(){clearSession(); location.href="../index.html";}
+function logout(){clearSession(); location.href="index.html";}
