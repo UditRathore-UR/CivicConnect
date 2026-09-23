@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Issue | CivicConnect</title><link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/citizen.css">
+</head><body>
+<header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">CC</span>CivicConnect</a><nav class="topnav"><a href="citizen-dashboard.html">Dashboard</a><a class="active" href="report.html">Report</a><a href="citizen-complaints.html">Complaints</a><a href="rewards.html">Rewards</a><a href="citizen-profile.html">Profile</a><button class="icon-btn" id="themeToggle">🌙</button><button class="btn ghost" onclick="logout()">Logout</button></nav></header>
+<main class="page-shell narrow">
+<div class="page-heading"><div><span class="eyebrow">NEW COMPLAINT</span><h1>Report a civic issue</h1><p>Provide enough evidence for the authority to verify and act.</p></div></div>
+<form id="reportForm" class="panel form-grid">
+<label>Issue Category<select id="category" required><option value="">Select category</option><option>Pothole</option><option>Garbage / Sanitation</option><option>Broken Streetlight</option><option>Water Leakage</option><option>Stray Animal</option><option>Damaged Public Infrastructure</option><option>Unauthorized Construction</option><option>Public Safety Hazard</option></select></label>
+<label>Description<textarea id="description" rows="4" required placeholder="Describe what happened and where..."></textarea></label>
+<div class="upload-box"><label>Evidence Photo<input id="photo" type="file" accept="image/*"></label><div id="photoPreview" class="photo-preview">No photo selected</div></div>
+<div class="location-box"><div class="panel-head"><h2>📍 Location</h2><span id="locationStatus" class="pill neutral">Not selected</span></div>
+<div class="location-actions"><button type="button" class="btn secondary" id="gpsBtn">Use Current Location</button><input id="manualLocation" placeholder="Or enter location manually, e.g. Ratibad Road, Bhopal"></div>
+<div class="coord-grid"><label>Latitude<input id="latitude" type="number" step="any" placeholder="Optional"></label><label>Longitude<input id="longitude" type="number" step="any" placeholder="Optional"></label></div>
+<div id="mapPreview" class="map-placeholder">📍 Location preview will appear here</div></div>
+<div class="form-actions"><a class="btn ghost" href="citizen-dashboard.html">Cancel</a><button class="btn primary" type="submit">Submit Complaint</button></div>
+<div id="submitMessage"></div>
+</form>
+</main>
+<script src="../js/storage.js"></script><script src="../js/auth.js"></script><script src="../js/app.js"></script><script src="../js/complaints.js"></script>
+<script>requireRole("citizen"); setupReportPage();</script>
+</body></html>
