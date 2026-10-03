@@ -51,20 +51,5 @@ Open browser DevTools → Console and run:
 ## Note
 This is a front-end demonstration. The government-ID verification is intentionally a simple local demo check, not a real government identity verification service. The support feature uses the user's mail client rather than a server-side email API.
 
-
-CAMERA / CAPTURE NOW
---------------------
-For Capture Now to access the browser camera, run CivicConnect through localhost or HTTPS.
-On Windows, double-click RUN_CIVICCONNECT.bat in this ZIP after extracting it.
-If Python is unavailable, use VS Code Live Server.
-Do not open report.html directly with file:// and expect getUserMedia camera access.
-
-Evidence:
-- View 1 = wide shot
-- View 2 = close-up
-- View 3 = surroundings
-- Each captured image is stamped with timestamp and available latitude/longitude.
-- Existing photos can still be uploaded separately using "Upload Photos".
-
 Daily Quest:
 The dashboard now renders the current daily quest after gamification.js loads. The quest rotates by day and tracks progress.
