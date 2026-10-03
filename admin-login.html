@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Access | CivicConnect</title>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="support.css">
+</head>
+<body class="auth-body citizen-auth-page">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">CC</span>CivicConnect</a>
+  <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+</header>
+
+<main class="auth-wrap">
+  <div class="auth-card citizen-auth-card">
+    <div class="auth-visual">
+      <div class="role-icon">🏛️</div>
+      <span class="eyebrow">ADMIN ACCESS</span>
+    </div>
+
+    <!-- Welcome / choice -->
+    <section id="adminAuthChoice" class="auth-view active-view">
+      <h1>Welcome, administrator</h1>
+      <p class="muted">Access the municipal command center and manage incoming cases.</p>
+      <div class="auth-choice-box">
+        <h2>Do you already have an admin account?</h2>
+        <p class="muted">Choose an option to continue to the Admin Console.</p>
+        <div class="auth-choice-grid">
+          <button class="auth-choice primary-choice" type="button" onclick="showAdminAuthView('login')">
+            <span class="choice-icon">🔐</span>
+            <span><strong>Yes, Login</strong><small>I already have an admin account</small></span>
+            <span class="choice-arrow">→</span>
+          </button>
+          <button class="auth-choice secondary-choice" type="button" onclick="showAdminAuthView('register')">
+            <span class="choice-icon">✨</span>
+            <span><strong>No, Create Account</strong><small>I'm new to the Admin Console</small></span>
+            <span class="choice-arrow">→</span>
+          </button>
+        </div>
+      </div>
+      <div class="demo-box auth-demo-note"><strong>Demo-friendly access</strong><br>You can create a fake admin account instantly — no OTP or email verification required.</div>
+    </section>
+
+    <!-- Login -->
+    <section id="adminLoginView" class="auth-view" hidden>
+      <button class="auth-back-btn" type="button" onclick="showAdminAuthView('choice')">← Back</button>
+      <h1>Welcome back</h1>
+      <p class="muted">Login to continue to the municipal command center.</p>
+      <form id="adminLoginForm">
+        <label>Email or User ID<input id="adminUsername" required autocomplete="username" placeholder="Enter your email or user ID"></label>
+        <label style="display:block;margin-top:14px">Government ID
+          <div class="gov-verify-row"><input id="adminLoginGovId" required placeholder="Enter gov123, gov456 or gov789" autocomplete="off"><button class="btn secondary gov-verify-btn" id="adminLoginGovVerify" type="button">VERIFY</button></div>
+          <span id="adminLoginGovStatus" class="gov-status">Required • verify before login</span>
+        </label>
+        <label style="display:block;margin-top:14px">Password
+          <div class="password-wrap"><input id="adminPassword" type="password" required autocomplete="current-password" placeholder="Enter your password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('adminPassword',this)">👁</button></div>
+        </label>
+        <button class="btn primary full auth-submit" type="submit"><span>Login to Admin Console</span><b>→</b></button>
+        <p id="adminLoginError" class="error"></p>
+      </form>
+      <div class="demo-box"><strong>Demo access</strong><br>ID: admin<br>Government ID: gov123<br>Password: admin123</div>
+      <p class="auth-switch">Don't have an account? <button type="button" onclick="showAdminAuthView('register')">Create one</button></p>
+    </section>
+
+    <!-- Create account -->
+    <section id="adminRegisterView" class="auth-view" hidden>
+      <button class="auth-back-btn" type="button" onclick="showAdminAuthView('choice')">← Back</button>
+      <h1>Create admin account</h1>
+      <p class="muted">Set up a demo admin account in a few seconds.</p>
+      <form id="adminRegisterForm">
+        <div class="register-grid">
+          <label>Full name<input id="adminRegName" required autocomplete="name" placeholder="e.g. Municipal Admin"></label>
+          <label>Email<input id="adminRegEmail" type="email" required autocomplete="email" placeholder="admin@example.com"></label>
+          <label>Mobile number<input id="adminRegMobile" type="tel" required autocomplete="tel" placeholder="+91 98765 43210"></label>
+          <label>Office / Address<input id="adminRegAddress" required autocomplete="street-address" placeholder="Municipal Office, City"></label>
+        </div>
+        <label style="display:block;margin-top:14px">Government ID
+          <div class="gov-verify-row"><input id="adminRegGovId" required placeholder="Enter gov123, gov456 or gov789" autocomplete="off"><button class="btn secondary gov-verify-btn" id="adminRegGovVerify" type="button">VERIFY</button></div>
+          <span id="adminRegGovStatus" class="gov-status">Required • verify before account creation</span>
+        </label>
+        <label style="display:block;margin-top:14px">Password
+          <div class="password-wrap"><input id="adminRegPassword" type="password" required minlength="4" autocomplete="new-password" placeholder="Create a password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('adminRegPassword',this)">👁</button></div>
+        </label>
+        <label style="display:block;margin-top:14px">Confirm password
+          <div class="password-wrap"><input id="adminRegConfirm" type="password" required minlength="4" autocomplete="new-password" placeholder="Re-enter password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('adminRegConfirm',this)">👁</button></div>
+        </label>
+        <button class="btn primary full auth-submit" type="submit"><span>Create Admin Account</span><b>→</b></button>
+        <p id="adminRegisterError" class="error"></p>
+      </form>
+      <p class="auth-switch">Already have an account? <button type="button" onclick="showAdminAuthView('login')">Login</button></p>
+    </section>
+
+    <a class="back-link" href="index.html">← Back to CivicConnect</a>
+  </div>
+</main>
+
+<script src="storage.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script><script src="support.js"></script>
+<script>
+function showAdminAuthView(view){
+  const views={choice:document.getElementById('adminAuthChoice'),login:document.getElementById('adminLoginView'),register:document.getElementById('adminRegisterView')};
+  Object.keys(views).forEach(k=>{const el=views[k];const active=k===view;el.hidden=!active;el.classList.toggle('active-view',active);});
+  if(view==='login') setTimeout(()=>document.getElementById('adminUsername')?.focus(),120);
+  if(view==='register') setTimeout(()=>document.getElementById('adminRegName')?.focus(),120);
+}
+function togglePassword(id,button){
+  const input=document.getElementById(id);
+  input.type=input.type==='password'?'text':'password';
+  button.textContent=input.type==='password'?'👁':'🙈';
+}
+verifyGovId('adminLoginGovId','adminLoginGovVerify','adminLoginGovStatus'); setupAdminLogin('adminLoginForm','adminUsername','adminPassword','adminLoginError');
+verifyGovId('adminRegGovId','adminRegGovVerify','adminRegGovStatus'); setupAdminRegister('adminRegisterForm','adminRegisterError',()=>showAdminAuthView('login'));
+</script>
+</body>
+</html>

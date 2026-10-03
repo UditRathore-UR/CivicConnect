@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Citizen Access | CivicConnect</title>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="support.css">
+</head>
+<body class="auth-body citizen-auth-page">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">CC</span>CivicConnect</a>
+  <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+</header>
+
+<main class="auth-wrap">
+  <div class="auth-card citizen-auth-card">
+    <div class="auth-visual">
+      <div class="role-icon">👤</div>
+      <span class="eyebrow">CITIZEN ACCESS</span>
+    </div>
+
+    <!-- Welcome / choice -->
+    <section id="authChoice" class="auth-view active-view">
+      <h1>Welcome to CivicConnect</h1>
+      <p class="muted">Your city. Your voice. Real action.</p>
+      <div class="auth-choice-box">
+        <h2>Do you already have an account?</h2>
+        <p class="muted">Choose an option to continue to the Citizen Portal.</p>
+        <div class="auth-choice-grid">
+          <button class="auth-choice primary-choice" type="button" onclick="showAuthView('login')">
+            <span class="choice-icon">🔐</span>
+            <span><strong>Yes, Login</strong><small>I already have an account</small></span>
+            <span class="choice-arrow">→</span>
+          </button>
+          <button class="auth-choice secondary-choice" type="button" onclick="showAuthView('register')">
+            <span class="choice-icon">✨</span>
+            <span><strong>No, Create Account</strong><small>I'm new to CivicConnect</small></span>
+            <span class="choice-arrow">→</span>
+          </button>
+        </div>
+      </div>
+      <div class="demo-box auth-demo-note"><strong>Demo-friendly access</strong><br>You can create a fake account instantly — no OTP or email verification required.</div>
+    </section>
+
+    <!-- Login -->
+    <section id="loginView" class="auth-view" hidden>
+      <button class="auth-back-btn" type="button" onclick="showAuthView('choice')">← Back</button>
+      <h1>Welcome back</h1>
+      <p class="muted">Login to continue your civic journey and track your reports.</p>
+      <form id="citizenLoginForm">
+        <label>Email or User ID<input id="username" required autocomplete="username" placeholder="Enter your email or user ID"></label>
+        <label style="display:block;margin-top:14px">Password
+          <div class="password-wrap"><input id="password" type="password" required autocomplete="current-password" placeholder="Enter your password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('password',this)">👁</button></div>
+        </label>
+        <button class="btn primary full auth-submit" type="submit"><span>Login to Citizen Portal</span><b>→</b></button>
+        <p id="loginError" class="error"></p>
+      </form>
+      <div class="demo-box"><strong>Demo access</strong><br>ID: citizen01<br>Password: citizen123</div>
+      <p class="auth-switch">Don't have an account? <button type="button" onclick="showAuthView('register')">Create one</button></p>
+    </section>
+
+    <!-- Create account -->
+    <section id="registerView" class="auth-view" hidden>
+      <button class="auth-back-btn" type="button" onclick="showAuthView('choice')">← Back</button>
+      <h1>Create your account</h1>
+      <p class="muted">Set up a demo citizen account in a few seconds.</p>
+      <form id="citizenRegisterForm">
+        <div class="register-grid">
+          <label>Full name<input id="regName" required autocomplete="name" placeholder="e.g. Udit Rathore"></label>
+          <label>Email<input id="regEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+          <label>Mobile number<input id="regMobile" type="tel" required autocomplete="tel" placeholder="+91 98765 43210"></label>
+          <label>Address<input id="regAddress" required autocomplete="street-address" placeholder="Area, City"></label>
+        </div>
+        <label style="display:block;margin-top:14px">Password
+          <div class="password-wrap"><input id="regPassword" type="password" required minlength="4" autocomplete="new-password" placeholder="Create a password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('regPassword',this)">👁</button></div>
+        </label>
+        <label style="display:block;margin-top:14px">Confirm password
+          <div class="password-wrap"><input id="regConfirm" type="password" required minlength="4" autocomplete="new-password" placeholder="Re-enter password"><button class="password-eye" type="button" aria-label="Show password" onclick="togglePassword('regConfirm',this)">👁</button></div>
+        </label>
+        <button class="btn primary full auth-submit" type="submit"><span>Create Account</span><b>→</b></button>
+        <p id="registerError" class="error"></p>
+      </form>
+      <p class="auth-switch">Already have an account? <button type="button" onclick="showAuthView('login')">Login</button></p>
+    </section>
+
+    <a class="back-link" href="index.html">← Back to CivicConnect</a>
+  </div>
+</main>
+
+<script src="storage.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+<script>
+function showAuthView(view){
+  const views={choice:document.getElementById('authChoice'),login:document.getElementById('loginView'),register:document.getElementById('registerView')};
+  Object.keys(views).forEach(k=>{const el=views[k];const active=k===view;el.hidden=!active;el.classList.toggle('active-view',active);});
+  if(view==='login'){
+    setTimeout(()=>document.getElementById('username')?.focus(),120);
+  }else if(view==='register'){
+    setTimeout(()=>document.getElementById('regName')?.focus(),120);
+  }
+}
+function togglePassword(id,button){
+  const input=document.getElementById(id);
+  input.type=input.type==='password'?'text':'password';
+  button.textContent=input.type==='password'?'👁':'🙈';
+}
+setupCitizenLogin('citizenLoginForm','username','password','loginError');
+setupCitizenRegister('citizenRegisterForm','registerError',()=>showAuthView('login'));
+</script>
+<script src="support.js"></script></body>
+</html>

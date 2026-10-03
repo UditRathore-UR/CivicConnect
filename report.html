@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Issue | CivicConnect</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="citizen.css"><link rel="stylesheet" href="civicconnect-palette.css"><link rel="stylesheet" href="location.css"><link rel="stylesheet" href="support.css">
+</head><body>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">CC</span>CivicConnect</a><nav class="topnav"><a href="citizen-dashboard.html">Dashboard</a><a class="active" href="report.html">Report</a><a href="citizen-complaints.html">Complaints</a><a href="rewards.html">Rewards</a><a href="citizen-profile.html">Profile</a><button class="icon-btn" id="themeToggle">🌙</button><button class="btn ghost" onclick="logout()">Logout</button></nav></header>
+<main class="page-shell narrow">
+<div class="page-heading"><div><span class="eyebrow">NEW COMPLAINT</span><h1>Report a civic issue</h1><p>Provide enough evidence for the authority to verify and act.</p></div></div>
+<form id="reportForm" class="panel form-grid">
+<label>Issue Category<select id="category" required><option value="">Select category</option><option>Pothole</option><option>Garbage / Sanitation</option><option>Broken Streetlight</option><option>Water Leakage</option><option>Stray Animal</option><option>Damaged Public Infrastructure</option><option>Unauthorized Construction</option><option>Public Safety Hazard</option></select></label>
+<label>Description<textarea id="description" rows="4" required placeholder="Describe what happened and where..."></textarea></label>
+<div class="upload-box evidence-panel">
+<div class="panel-head"><div><span class="eyebrow">TRUSTED EVIDENCE</span><h2>📸 Capture 3 views</h2></div><span class="pill info">Recommended</span></div>
+<p class="muted evidence-intro">Use <b>Capture Now</b> for fresh evidence. Each camera photo is stamped with the current time and available GPS coordinates.</p>
+<div class="evidence-grid">
+<div class="evidence-tile" id="shot0"><div class="empty-camera">📷<small>View 1 · Wide shot</small></div><button type="button" class="btn secondary capture-btn" data-shot="0">Capture Now</button></div>
+<div class="evidence-tile" id="shot1"><div class="empty-camera">📷<small>View 2 · Close-up</small></div><button type="button" class="btn secondary capture-btn" data-shot="1">Capture Now</button></div>
+<div class="evidence-tile" id="shot2"><div class="empty-camera">📷<small>View 3 · Surroundings</small></div><button type="button" class="btn secondary capture-btn" data-shot="2">Capture Now</button></div>
+</div>
+<div class="evidence-upload-row"><span>Have an existing photo?</span><button type="button" class="btn ghost" id="uploadEvidenceBtn">📁 Upload Photos</button><input id="photo" type="file" accept="image/*" multiple hidden></div>
+<small class="muted">Tip: capture all 3 views for the Evidence Expert quest.</small></div>
+<div class="location-box"><div class="panel-head"><h2>📍 Location</h2><span id="locationStatus" class="pill neutral">Not selected</span></div>
+<div class="location-tools"><input id="manualLocation" placeholder="Search an Indian place, e.g. Ratibad Road, Bhopal"><button type="button" class="btn secondary" id="locationSearchBtn">🔎 Search</button></div>
+<div class="location-actions"><button type="button" class="btn secondary" id="gpsBtn">📍 Use Current Location</button><span class="muted" style="align-self:center;font-size:12px">or click anywhere on the map</span></div>
+<div id="locationMap" class="location-map"></div>
+<div class="coord-grid"><label>Latitude<input id="latitude" type="number" step="any" placeholder="Select on map"></label><label>Longitude<input id="longitude" type="number" step="any" placeholder="Select on map"></label></div>
+<div class="location-help"><span>🇮🇳 India-only location search</span><span>OpenStreetMap • Real map data</span></div></div>
+<div class="form-actions"><a class="btn ghost" href="citizen-dashboard.html">Cancel</a><button class="btn primary" type="submit">Submit Complaint</button></div>
+<div class="trust-warning">🛡️ <strong>TrustCheck:</strong> Duplicate, spam, misleading or fake reports may reduce your Civic Points and Reputation Score.</div><div id="submitMessage"></div>
+</form>
+</main>
+<script src="storage.js"></script><script src="auth.js"></script><script src="app.js"></script><script src="complaints.js"></script><script src="gamification.js"></script><script src="location.js"></script><script src="support.js"></script>
+<script>requireRole("citizen"); setupReportPage(); setupCitizenLocationMap();</script>
+</body></html>
